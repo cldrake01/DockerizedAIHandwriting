@@ -1,14 +1,5 @@
-from trdg.generators import (
-    GeneratorFromDict,
-    GeneratorFromRandom,
-    GeneratorFromStrings,
-    GeneratorFromWikipedia,
-)
-import torch
-import torch.nn as nn
-from torchvision import transforms
-from tqdm import tqdm
-from fastai.vision.all import show_image
+from trdg.generators import GeneratorFromRandom
+from tqdm import *
 import pickle as p
 import os
 
@@ -20,7 +11,7 @@ datas = GeneratorFromRandom(
     is_handwritten=True
 )
 
-if(os.path.exists("saves/dataset.p")):
+if os.path.exists("saves/dataset.p"):
     with open("saves/dataset.p", 'rb') as file:
         (targets, images) = p.load(file)
 

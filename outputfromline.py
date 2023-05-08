@@ -1,16 +1,15 @@
 from PIL import Image
 from transformers import TrOCRProcessor, VisionEncoderDecoderModel
-import numpy as np
 import cv2
 
-def get_text(inputs):
-    pixel_values = processor(inputs, return_tensors="pt").pixel_values
+def get_text(input_params):
+    pixel_values = processor(input_params, return_tensors="pt").pixel_values
 
     generated_ids = model.generate(pixel_values)
     generated_text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
     output = generated_text
 
-    return(output)
+    return output
 
 def extract_lines(path):
     img = cv2.imread(path)
