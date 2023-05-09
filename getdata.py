@@ -16,8 +16,8 @@ if os.path.exists("saves/dataset.p"):
         (targets, images) = p.load(file)
 
 else:
-    targets=[]
-    images=[]
+    targets = []
+    images = []
 pbar = tqdm(datas)
 for target, image in pbar:
     targets.append(target)

@@ -3,8 +3,10 @@ import torch
 from skimage import io
 from torch.utils.data import Dataset
 
+
 def split(word):
     return [char for char in word]
+
 
 class IAMDataset(Dataset):
     def __init__(self) -> None:
@@ -31,7 +33,7 @@ class IAMDataset(Dataset):
         - An integer representing the length of the dataset.
         """
         return len(self.images)
-    
+
     def __getitem__(self, idx):
         """
         Gets an item from the dataset.
@@ -44,11 +46,11 @@ class IAMDataset(Dataset):
         """
         if torch.is_tensor(idx):
             idx = idx.tolist()
-        
+
         image = io.imread("data/images/" + self.images[idx])
         label = []
         for c in split(self.labels[idx]):
-            label.append(ord(c)+1)
+            label.append(ord(c) + 1)
 
         item = {'label': label, 'image': image}
         return item

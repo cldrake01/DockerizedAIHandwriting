@@ -8,7 +8,6 @@ from torchvision import transforms
 from tqdm import tqdm
 from fastai.vision.all import show_image
 
-
 print("Loading dataset from data folder")
 dataset = IAMDataset()
 dataloader = data.DataLoader(dataset, batch_size=1, shuffle=True)
@@ -16,7 +15,7 @@ print("Loaded data!")
 
 device = "cuda"
 
-maxseqlen=100
+maxseqlen = 100
 
 model = HTR(256, 8, 6, 6, maxlinelen=100)
 
@@ -34,14 +33,13 @@ for epoch in range(1, 100):
     print("Next epoch starting:", epoch)
     pbar = tqdm(dataloader)
 
-    i=1
-    running_loss=0
+    i = 1
+    running_loss = 0
     for item in pbar:
 
         try:
             target = item["label"]
             inputs = item["image"].cuda()
-
 
             a = torch.zeros(maxseqlen)
             target = torch.LongTensor(target)
@@ -55,12 +53,11 @@ for epoch in range(1, 100):
 
             optim.zero_grad()
 
-            
             running_loss += loss.item()
 
-            pbar.set_description("loss:{:.4f}".format(running_loss/(i)))
+            pbar.set_description("loss:{:.4f}".format(running_loss / (i)))
 
-            i+=1
+            i += 1
         except:
             print("There was an error. Ignoring.")
 
